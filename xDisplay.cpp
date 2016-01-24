@@ -84,13 +84,24 @@ void xDisplay::finishDrawing(void) {
     m_surface->flush();
 }
 
-void xDisplay::drawLine(const screenPoint &from, const screenPoint &to){
-    // TODO: Expose these in a better way, this is just some intial hard-coded defaults
-    m_context->set_line_width(2.0);
-    m_context->set_source_rgb(1.0,1.0,1.0);
+void xDisplay::startPath(const screenPoint &startPos, bool filled) {
+    m_context->move_to(startPos.x(), startPos.y());
+}
 
+void xDisplay::endPath(void) {
+    m_context->set_line_width(5);
+    m_context->set_source_rgb(1,1,1);
+    m_context->stroke();
+}
+
+void xDisplay::drawLine(const screenPoint &from, const screenPoint &to){
+#ifdef OSM_DEBUG
     cout << "From " << from.x() << "x" << from.y() << endl;
     cout << "To " << to.x() << "x" << to.y() << endl;
+#endif
+
+    if (to == from)
+        return;
 
     // Draw it
     m_context->move_to(from.x(), from.y());

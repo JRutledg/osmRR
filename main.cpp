@@ -57,79 +57,24 @@ int main(int argc, char **argv) {
     std::shared_ptr<xDisplay> xDisp= std::make_shared<xDisplay>(x, y);
     if (mapData && xDisp) {
         auto renderer= mapRenderer(xDisp, mapData);
-        renderer.drawAllRoads(*mapData->bounds());
+        for (int i=0; i<240; i++) {
+            renderer.drawAllRoads(*mapData->bounds());
+            usleep(15000);
+        }
 
         /*
-        typedef boost::directed_graph<> Graph;
-        Graph g;
-        boost::graph_traits<Graph>::vertex_descriptor v0 = g.add_vertex();
-        boost::graph_traits<Graph>::vertex_descriptor v1 = g.add_vertex();
-
-        g.add_edge(v0, v1);
-
-        double x0 = 20, y0 = 20, x1 = 200, y1 = 400, x2 = 450, y2 = 100;
-        double dx0 = 1, dx1 = 1.5, dx2 = 2;
-        double dy0 = 2, dy1 = 1.5, dy2 = 1;
-        int running;
-
-        x = y = 0;
-        sfc = cairo_create_x11_surface(&x, &y);
-        int w= cairo_xlib_surface_get_width(sfc);
-        int h= cairo_xlib_surface_get_height(sfc);
-        cout << "Display: " <<  w << "x" << h << endl;
-        int wmul= w / fabs(mapData->bounds()->getMaxLongitude() - mapData->bounds()->getMinLongitude());
-        int hmul= h / fabs(mapData->bounds()->getMaxLatitude() - mapData->bounds()->getMinLatitude());
-        cout << "wmul: " << wmul << " hmul: " << hmul << endl;
-        int wmin= fabs(mapData->bounds()->getMinLongitude() - mapData->bounds()->getMinLongitude()) * wmul;
-        int wmax= fabs(mapData->bounds()->getMaxLongitude() - mapData->bounds()->getMinLongitude()) * wmul;
-        int hmin= fabs(mapData->bounds()->getMinLatitude() - mapData->bounds()->getMinLatitude()) * hmul;
-        int hmax= fabs(mapData->bounds()->getMaxLatitude() - mapData->bounds()->getMinLatitude()) * hmul;
-        cout << "Screen bounds: wmin " << wmin << " wmax " << wmax << " hmin " << hmin << " hmax " << hmax << endl;
-
-        ctx = cairo_create(sfc);
-
-        for (running = 1; running;) {
-            cairo_push_group(ctx);
-            cairo_set_source_rgb(ctx, 1, 1, 1);
-            cairo_paint(ctx);
-            cairo_move_to(ctx, x0, y0);
-            cairo_line_to(ctx, x1, y1);
-            cairo_line_to(ctx, x2, y2);
-            cairo_line_to(ctx, x0, y0);
-            cairo_set_source_rgb(ctx, 0, 0, 1);
-            cairo_fill_preserve(ctx);
-            cairo_set_line_width(ctx, 5);
-            cairo_set_source_rgb(ctx, 1, 1, 0);
-            cairo_stroke(ctx);
-            cairo_set_source_rgb(ctx, 0, 0, 0);
-            cairo_move_to(ctx, x0, y0);
-            cairo_show_text(ctx, "P0");
-            cairo_move_to(ctx, x1, y1);
-            cairo_show_text(ctx, "P1");
-            cairo_move_to(ctx, x2, y2);
-            cairo_show_text(ctx, "P2");
-            cairo_pop_group_to_source(ctx);
-            cairo_paint(ctx);
-            cairo_surface_flush(sfc);
-
-            x0 += dx0;
-            y0 += dy0;
-            x1 += dx1;
-            y1 += dy1;
-            x2 += dx2;
-            y2 += dy2;
-
-            switch (cairo_check_event(sfc, 0)) {
+         * TODO: Catch input events
+        for (int running = 1; running;) {
+               switch (cairo_check_event(sfc, 0)) {
                 case 0xff1b:   // Esc
                 case -1:       // left mouse button
                     running = 0;
                     break;
             }
 
-            nanosleep(&ts, NULL);
+            usleep(15000);
         }
         */
-        sleep(5);
     }
     else {
         cerr << "Failed to load map data" << endl;

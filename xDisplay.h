@@ -32,6 +32,10 @@ namespace osmMapper {
 
         void finishDrawing(void);
 
+        void startPath(const screenPoint &startPos, bool filled= false);
+
+        void endPath(void);
+
         void drawLine(const screenPoint &from, const screenPoint &to);
 
     private:

@@ -9,37 +9,45 @@
 
 namespace osmMapper {
     struct colour_t {
-        int r;
-        int g;
-        int b;
+        double r;
+        double g;
+        double b;
     };
 
     typedef int_fast64_t OSM_id_t;
 
     class compassPoint {
     public:
-        compassPoint(float latitude, float longitude) : m_lat(latitude), m_lon(longitude) { }
+        compassPoint(double latitude, double longitude) : m_lat(latitude), m_lon(longitude) { }
 
-        float lat(void) const { return m_lat; }
+        double lat(void) const { return m_lat; }
 
-        float lon(void) const { return m_lon; }
+        double lon(void) const { return m_lon; }
 
     private:
-        float m_lat;
-        float m_lon;
+        double m_lat;
+        double m_lon;
     };
 
     class screenPoint {
     public:
-        screenPoint(int x, int y) : m_x(x), m_y(y) { }
+        screenPoint(double x, double y) : m_x(x), m_y(y) { }
 
-        int x(void) const { return m_x; }
+        double x(void) const { return m_x; }
 
-        int y(void) const { return m_y; }
+        double y(void) const { return m_y; }
+
+        friend inline bool operator==(const screenPoint& lhs, const screenPoint& rhs){
+            return (lhs.x() == rhs.x() && lhs.y() == rhs.y());
+        }
+
+        friend inline bool operator!=(const screenPoint& lhs, const screenPoint& rhs){
+            return !(lhs == rhs);
+        }
 
     private:
-        int m_x;
-        int m_y;
+        double m_x;
+        double m_y;
     };
 
 } // namespace osmMapper

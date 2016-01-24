@@ -60,21 +60,25 @@ void mapRenderer::drawRoad(const osmRoad &road, const osmBounds &bounds) {
     screenPoint prevNodeLoc= compassPointToScreenPoint(startNode.location(), bounds);
 
     cout << "Drawing road " << road.name();
+
+    m_disp->startPath(prevNodeLoc);
     for (auto node : nodesToRender){
-        cout << ".";
-        m_disp->drawLine(prevNodeLoc, compassPointToScreenPoint(node.location(), bounds));
+        screenPoint newNodeLoc= compassPointToScreenPoint(node.location(), bounds);
+        m_disp->drawLine(prevNodeLoc, newNodeLoc);
+        prevNodeLoc= newNodeLoc;
     }
+    m_disp->endPath();
     cout << endl;
 }
 
 void mapRenderer::drawAllRoads(const osmBounds &bounds) {
     cout << "Rendering all roads" << endl;
+    m_disp->startDrawing();
     for (auto road : m_data->getRoads())
     {
-        m_disp->startDrawing();
         drawRoad(road, bounds);
-        m_disp->finishDrawing();
     }
+    m_disp->finishDrawing();
 }
 
 #ifdef OSM_DEBUG

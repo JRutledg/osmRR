@@ -39,6 +39,10 @@ namespace osmMapper {
 
         virtual void finishDrawing(void)= 0;
 
+        virtual void startPath(const screenPoint &startPos, bool filled= false)= 0;
+
+        virtual void endPath(void)= 0;
+
         //! Renders a line on the display
         //! \param from The position to draw line from
         //! \param to The position to draw the line to
@@ -50,7 +54,7 @@ namespace osmMapper {
         //! \param y Initial height of display in display units
         display(int &x, int &y) : m_width(x), m_height(y)
         {
-            bgColour({0,0,0});
+            bgColour({0.9,0.9,0.7});
         }
 
         int m_width;            //!< Width of display in display units
