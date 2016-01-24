@@ -30,7 +30,11 @@ std::vector<osmNode> osmData::getNodes(const osmRoad &road) const
     return nodes;
 }
 
-std::map<OSM_id_t, std::shared_ptr<osmRoad> >::iterator osmData::roadBegin()
+std::vector<osmRoad> osmData::getRoads(void) const
 {
-    return m_roads.begin();
+    std::vector<osmRoad> roads;
+    for (auto road : m_roads) {
+        roads.push_back(*road.second);
+    }
+    return roads;
 }

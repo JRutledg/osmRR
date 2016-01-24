@@ -1,10 +1,13 @@
 #include "osmParser.h"
-#include "display.h"
+#include "xDisplay.h"
 #include "mapRenderer.h"
 
 #include <boost/graph/directed_graph.hpp>
 
 #include <iostream>
+#include <X.h>
+#include <Xlib.h>
+#include <Xutil.h>
 
 using namespace std;
 using namespace osmMapper;
@@ -46,16 +49,14 @@ int cairo_check_event(cairo_surface_t *sfc, int block) {
 
 
 int main(int argc, char **argv) {
-    cairo_surface_t *sfc;
-    cairo_t *ctx;
-    int x, y;
+    int x= 0, y= 0;
     struct timespec ts={0, 5000000};
 
     osmParser p;
-    auto mapData=p.parseFile("/home/joe/osmData.xml");
-    auto disp=xDisplay(x, y);
-    if (mapData) {
-        auto renderer= mapRenderer(disp, *mapData);
+    std::shared_ptr<osmData> mapData= p.parseFile("/home/joe/osmData.xml");
+    std::shared_ptr<xDisplay> xDisp= std::make_shared<xDisplay>(x, y);
+    if (mapData && xDisp) {
+        auto renderer= mapRenderer(xDisp, mapData);
         renderer.drawAllRoads(*mapData->bounds());
 
         /*
@@ -128,6 +129,7 @@ int main(int argc, char **argv) {
             nanosleep(&ts, NULL);
         }
         */
+        sleep(5);
     }
     else {
         cerr << "Failed to load map data" << endl;

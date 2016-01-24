@@ -8,6 +8,11 @@
 #include <cstdint>
 
 namespace osmMapper {
+    struct colour_t {
+        int r;
+        int g;
+        int b;
+    };
 
     typedef int_fast64_t OSM_id_t;
 

@@ -16,7 +16,7 @@ namespace osmMapper {
     public:
         static std::shared_ptr<osmBounds> create(float minLatitude, float maxLatitude, float minLongitude, float
         maxLongitude) {
-            return std::make_shared<osmBounds>(minLatitude, maxLatitude, minLongitude, minLatitude);
+            return std::make_shared<osmBounds>(minLatitude, maxLatitude, minLongitude, maxLongitude);
         }
 
         const float getMinLatitude() const {

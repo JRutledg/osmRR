@@ -12,13 +12,15 @@ namespace osmMapper {
 
     class mapRenderer {
     public:
-        mapRenderer(display &disp, osmData &osmMap) : m_disp(disp), m_data(osmMap){}
+        mapRenderer(std::shared_ptr<display> disp, std::shared_ptr<osmData> osmMap) : m_disp(disp), m_data(osmMap){}
         void drawRoad(const osmRoad &road, const osmBounds &bounds);
         void drawAllRoads(const osmBounds &bounds);
 
     private:
-        display m_disp;
-        osmData m_data;
+        screenPoint compassPointToScreenPoint(const compassPoint &inPoint, const osmBounds &bounds);
+
+        std::shared_ptr<display> m_disp;
+        std::shared_ptr<osmData> m_data;
     };
 
 }

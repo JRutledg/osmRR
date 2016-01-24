@@ -3,7 +3,24 @@ project(osmMapper)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES main.cpp osmParser.cpp osmParser.h osmRoad.cpp osmRoad.h osmNode.cpp osmNode.h OSMTypes.h osmBounds.cpp osmBounds.h osmData.cpp osmData.h display.cpp display.h mapRenderer.cpp mapRenderer.h)
+set(SOURCE_FILES
+        main.cpp
+        osmParser.cpp
+        osmParser.h
+        osmRoad.cpp
+        osmRoad.h
+        osmNode.cpp
+        osmNode.h
+        OSMTypes.h
+        osmBounds.cpp
+        osmBounds.h
+        osmData.cpp
+        osmData.h
+        display.h
+        mapRenderer.cpp
+        mapRenderer.h
+        xDisplay.cpp
+        xDisplay.h)
 
 add_executable(osmMapper ${SOURCE_FILES})
 

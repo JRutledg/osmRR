@@ -29,7 +29,7 @@ namespace osmMapper {
 
         std::vector<osmNode> getNodes(const osmRoad &road) const;
 
-        std::map<OSM_id_t, std::shared_ptr<osmRoad> >::iterator roadBegin();
+        std::vector<osmRoad> getRoads(void) const;
 
     private:
         std::shared_ptr<osmBounds> m_bounds;
