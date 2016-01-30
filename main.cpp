@@ -3,11 +3,13 @@
 #include "mapRenderer.h"
 
 #include <boost/graph/directed_graph.hpp>
+#include <boost/timer/timer.hpp>
 
 #include <iostream>
 #include <X.h>
 #include <Xlib.h>
 #include <Xutil.h>
+
 
 using namespace std;
 using namespace osmMapper;
@@ -53,14 +55,19 @@ int main(int argc, char **argv) {
     struct timespec ts={0, 5000000};
 
     osmParser p;
-    std::shared_ptr<osmData> mapData= p.parseFile("/home/joe/osmData.xml");
+    std::shared_ptr<osmData> mapData;
+    {
+        boost::timer::auto_cpu_timer parse_time;
+        mapData= p.parseFile("/home/joe/map.xml");
+    }
     std::shared_ptr<xDisplay> xDisp= std::make_shared<xDisplay>(x, y);
     if (mapData && xDisp) {
         auto renderer= mapRenderer(xDisp, mapData);
-        for (int i=0; i<240; i++) {
+        for (int i=0; i<1; i++) {
+            boost::timer::auto_cpu_timer render_time;
             renderer.drawAllRoads(*mapData->bounds());
-            usleep(15000);
         }
+        sleep(20);
 
         /*
          * TODO: Catch input events

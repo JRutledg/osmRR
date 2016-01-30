@@ -14,6 +14,14 @@ namespace osmMapper {
         double b;
     };
 
+    static const colour_t blue= {0.329411765, 0.333333333, 0.921568627};
+    static const colour_t pink= {0.988235294, 0.380392157, 0.619607843};
+    static const colour_t orange= {0.996078431, 0.666666667, 0.141176471};
+    static const colour_t green= {0.0, 0.662745098, 0.121568627};
+    static const colour_t yellow= {0.988235294, 0.890196078, 0.035294118};
+    static const colour_t white= {1.0, 1.0, 1.0};
+    static const colour_t black= {0.0, 0.0, 0.0};
+
     typedef int_fast64_t OSM_id_t;
 
     class compassPoint {

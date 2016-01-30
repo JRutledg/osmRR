@@ -73,6 +73,7 @@ int xDisplay::height(void) const {
 }
 
 void xDisplay::startDrawing(void) {
+    m_context->set_antialias(ANTIALIAS_GRAY);
     m_context->push_group();
     m_context->set_source_rgb(m_background.r, m_background.g, m_background.b);
     m_context->paint();
@@ -82,15 +83,18 @@ void xDisplay::finishDrawing(void) {
     m_context->pop_group_to_source();
     m_context->paint();
     m_surface->flush();
+    XSync(m_dsp, false); // Yuk. I think m_surface->flush is supposed to do this but I found this needed...
 }
 
-void xDisplay::startPath(const screenPoint &startPos, bool filled) {
+void xDisplay::startPath(const screenPoint &startPos, const colour_t &colour, const double thickness, bool filled){
+    m_context->set_line_width(thickness);
+    m_context->set_source_rgb(colour.r, colour.g, colour.b);
+    m_context->set_line_cap(LINE_CAP_ROUND);
+    m_context->set_line_join(LINE_JOIN_ROUND);
     m_context->move_to(startPos.x(), startPos.y());
 }
 
 void xDisplay::endPath(void) {
-    m_context->set_line_width(5);
-    m_context->set_source_rgb(1,1,1);
     m_context->stroke();
 }
 

@@ -18,7 +18,6 @@ namespace osmMapper {
 
     private:
         screenPoint compassPointToScreenPoint(const compassPoint &inPoint, const osmBounds &bounds);
-
         std::shared_ptr<display> m_disp;
         std::shared_ptr<osmData> m_data;
     };

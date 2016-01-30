@@ -13,6 +13,8 @@
 #include <iostream>
 #include <cmath>
 
+#include <algorithm>
+
 using namespace std;
 using namespace osmMapper;
 
@@ -59,9 +61,40 @@ void mapRenderer::drawRoad(const osmRoad &road, const osmBounds &bounds) {
     const auto startNode= nodesToRender.front();
     screenPoint prevNodeLoc= compassPointToScreenPoint(startNode.location(), bounds);
 
+#ifdef OSM_DEBUG
     cout << "Drawing road " << road.name();
-
-    m_disp->startPath(prevNodeLoc);
+#endif
+    colour_t roadColour;
+    double roadWidth;
+    switch(road.category())
+    {
+        case motorway:
+            roadColour= blue;
+            roadWidth= 8.0;
+            break;
+        case trunk:
+            roadColour= green;
+            roadWidth= 7.0;
+            break;
+        case primary:
+            roadColour= pink;
+            roadWidth= 6.0;
+            break;
+        case secondary:
+            roadColour= orange;
+            roadWidth= 4.0;
+            break;
+        case tertiary:
+            roadColour= yellow;
+            roadWidth= 2.0;
+            break;
+        case minor: // Intentional fall through
+        default:
+            roadColour= white;
+            roadWidth= 1.0;
+            break;
+    }
+    m_disp->startPath(prevNodeLoc, roadColour, roadWidth, false);
     for (auto node : nodesToRender){
         screenPoint newNodeLoc= compassPointToScreenPoint(node.location(), bounds);
         m_disp->drawLine(prevNodeLoc, newNodeLoc);
@@ -71,10 +104,17 @@ void mapRenderer::drawRoad(const osmRoad &road, const osmBounds &bounds) {
     cout << endl;
 }
 
+bool roadSorter (const osmRoad &i, const osmRoad &j) { return (i.category() > j.category()); }
+
 void mapRenderer::drawAllRoads(const osmBounds &bounds) {
+#ifdef OSM_DEBUG
     cout << "Rendering all roads" << endl;
+#endif
+    auto roads= m_data->getRoads();
+    // Painters algo, sort by road priority
+    std::sort(roads.begin(), roads.end(), roadSorter);
     m_disp->startDrawing();
-    for (auto road : m_data->getRoads())
+    for (auto road : roads)
     {
         drawRoad(road, bounds);
     }

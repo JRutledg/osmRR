@@ -31,7 +31,7 @@ namespace osmMapper {
         //! Gets the current height of the display in display units
         virtual int height(void) const {return m_height;}
 
-        virtual void bgColour(osmMapper::colour_t colour){m_background= colour;}
+        virtual void bgColour(const osmMapper::colour_t &colour){m_background= colour;}
 
         virtual osmMapper::colour_t bgColour(void) const {return m_background;}
 
@@ -39,7 +39,8 @@ namespace osmMapper {
 
         virtual void finishDrawing(void)= 0;
 
-        virtual void startPath(const screenPoint &startPos, bool filled= false)= 0;
+        virtual void startPath(const screenPoint &startPos,
+                               const colour_t &colour, const double thickness, bool filled)= 0;
 
         virtual void endPath(void)= 0;
 
@@ -54,7 +55,7 @@ namespace osmMapper {
         //! \param y Initial height of display in display units
         display(int &x, int &y) : m_width(x), m_height(y)
         {
-            bgColour({0.9,0.9,0.7});
+            bgColour({0.75,0.75,0.70});
         }
 
         int m_width;            //!< Width of display in display units

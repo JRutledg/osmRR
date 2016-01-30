@@ -32,7 +32,8 @@ namespace osmMapper {
 
         void finishDrawing(void);
 
-        void startPath(const screenPoint &startPos, bool filled= false);
+        void startPath(const screenPoint &startPos, const colour_t &colour={1.0,1.0,1.0}, const double thickness= 5.0,
+                       bool filled= false);
 
         void endPath(void);
 
