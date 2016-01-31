@@ -20,13 +20,12 @@ namespace osmMapper {
 
         osmNode(OSM_id_t id, const compassPoint &location) : m_id(id), m_location(location) { }
 
-        compassPoint location(void) const {return m_location;}
+        compassPoint location(void) const { return m_location; }
 
     private:
         const OSM_id_t m_id;
         const compassPoint m_location;
     };
-
 } // namespace osmMapper
 
 #endif //CAIROEXPERIMENTS_OSMNODE_H

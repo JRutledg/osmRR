@@ -53,5 +53,5 @@ add_library(pugixml STATIC IMPORTED)
 set_property(TARGET pugixml PROPERTY IMPORTED_LOCATION /usr/lib/x86_64-linux-gnu/libpugixml.so)
 include_directories(/usr/include/pugixml)
 
-target_link_libraries(osmMapper ${Boost_LIBRARIES} cairo x11 cairomm pugixml)
+target_link_libraries(osmMapper ${Boost_LIBRARIES} cairo x11 cairomm pugixml pthread rt)
 link_directories(${Boost_LIBRARY_DIRS})

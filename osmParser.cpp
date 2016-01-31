@@ -2,15 +2,10 @@
 // Created by joe on 12/12/15.
 //
 #include "osmParser.h"
-#include "osmBounds.h"
-
-#include <pugixml.hpp>
 
 #include <boost/lexical_cast.hpp>
 
 #include <iostream>
-#include <cstring>
-#include <memory>
 
 using namespace std;
 using namespace pugi;
@@ -102,7 +97,6 @@ std::map<OSM_id_t, std::shared_ptr<osmRoad> > osmParser::populateRoads(const pug
                                 roadCategory=tertiary;
                             }
                         }
-
                     }
                 }
                 else if (strcmp(child.name(), "nd") == 0) {

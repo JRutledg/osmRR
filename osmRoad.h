@@ -26,7 +26,9 @@ namespace osmMapper {
     //! service      minor
     //! "link" types follow their parent at the moment, though their size should be smaller
     //! everything else gets rendered as minor until I implement them
-    enum  road_category_t {motorway, trunk, primary, secondary, tertiary, minor};
+    enum road_category_t {
+        motorway, trunk, primary, secondary, tertiary, minor
+    };
 
     class osmRoad {
     public:
@@ -51,7 +53,8 @@ namespace osmMapper {
             return m_segments;
         }
 
-        osmRoad(OSM_id_t wayId, const std::string &name, const std::vector<OSM_id_t> &segments, const road_category_t &cat)
+        osmRoad(OSM_id_t wayId, const std::string &name, const std::vector<OSM_id_t> &segments,
+                const road_category_t &cat)
                 : m_wayId(wayId), m_name(name), m_segments(segments), m_category(cat) { }
 
     private:
@@ -60,7 +63,6 @@ namespace osmMapper {
         std::vector<OSM_id_t> m_segments;
         road_category_t m_category;
     };
-
 } // namespace osmMapper
 
 #endif //CAIROEXPERIMENTS_OSMROAD_H

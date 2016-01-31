@@ -36,7 +36,6 @@ namespace osmMapper {
         std::unordered_map<OSM_id_t, std::shared_ptr<osmNode> > m_nodes;
         std::map<OSM_id_t, std::shared_ptr<osmRoad> > m_roads;
     };
-
 } // namespace osmMapper
 
 #endif //OSMMAPPER_OSMDATA_H

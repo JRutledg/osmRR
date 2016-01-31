@@ -45,7 +45,6 @@ namespace osmMapper {
         const float m_minLongitude;
         const float m_maxLongitude;
     };
-
 } // namespace osmMapper;
 
 #endif //CAIROEXPERIMENTS_OSMBOUNDS_H

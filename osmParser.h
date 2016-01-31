@@ -26,10 +26,11 @@ namespace osmMapper {
 
     private:
         std::shared_ptr<osmBounds> populateBounds(const pugi::xml_node &osmRoot);
+
         std::unordered_map<OSM_id_t, std::shared_ptr<osmNode> > populateNodes(const pugi::xml_node &osmRoot);
+
         std::map<OSM_id_t, std::shared_ptr<osmRoad> > populateRoads(const pugi::xml_node &osmRoot);
     };
-
 } // namespace osmMapper
 
 #endif //CAIROEXPERIMENTS_OSMPARSER_H
